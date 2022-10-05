@@ -1,6 +1,7 @@
 const Colors = {
    headerColor:'#4d6680',
-   backgroundColor: "#171a29"
+   backgroundColor: "#1f2336",
+   secondaryColor: '#d8e5eb'
   };
   
   

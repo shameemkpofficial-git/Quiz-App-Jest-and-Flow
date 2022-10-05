@@ -1,24 +1,24 @@
 //@flow
 
-const Questions: Array<mixed> = [
+const Questions: Array<any> = [
   {
     id:1,
     category: 'General Knowledge',
     type: 'multiple',
     difficulty: 'medium',
     question:
-      'What is the name of the popular animatronic singing fish prop, singing such hits such as &quot;Don&#039;t Worry, Be Happy&quot;?',
-    correct_answer: 'Big Mouth Billy Bass',
-    incorrect_answers: ['Big Billy Bass', 'Singing Fish', 'Sardeen'],
+      'How many days do we have in a week?',
+    correct_answer: 'Seven',
+    incorrect_answers: ['Nine', 'Six', 'Eight'],
   },
   {
     id:2,
     category: 'General Knowledge',
     type: 'multiple',
     difficulty: 'medium',
-    question: 'What is a Burgee?',
-    correct_answer: 'A flag',
-    incorrect_answers: ['A rope', 'A window', 'A type of food'],
+    question: ' How many days are there in a year?',
+    correct_answer: '365',
+    incorrect_answers: ['355', '346', '364'],
   },
   {
     id:3,
@@ -26,9 +26,9 @@ const Questions: Array<mixed> = [
     type: 'boolean',
     difficulty: 'hard',
     question:
-      'Spoon theory is a theory, utilizing &quot;Spoons&quot; as a metaphor for energy they can use in a day.',
-    correct_answer: 'True',
-    incorrect_answers: ['False'],
+      'How many colors are there in a rainbow?',
+    correct_answer: '7',
+    incorrect_answers: ['8','5','14'],
   },
   {
     id:4,
@@ -36,9 +36,9 @@ const Questions: Array<mixed> = [
     type: 'multiple',
     difficulty: 'easy',
     question:
-      'What machine element is located in the center of fidget spinners?',
-    correct_answer: 'Bearings',
-    incorrect_answers: ['Axles', 'Gears', 'Belts'],
+      'Which animal is known as the "Ship of the Desert?"',
+    correct_answer: 'Camel',
+    incorrect_answers: ['Lion', 'Goat', 'Eagle'],
   },
   {
     id:5,
@@ -46,10 +46,10 @@ const Questions: Array<mixed> = [
     type: 'multiple',
     difficulty: 'medium',
     question:
-      'Which American manufactured submachine gun was informally known by the American soldiers that used it as &quot;Grease Gun&quot;?',
-    correct_answer: 'M3',
-    incorrect_answers: ['Colt 9mm', 'Thompson', 'MAC-10'],
-  },
+      'In which direction does the sun rise?',
+    correct_answer: 'East',
+    incorrect_answers: ['West', 'South', 'North'],
+  }
 ];
 
 

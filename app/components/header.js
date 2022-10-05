@@ -25,7 +25,9 @@ const Styles = StyleSheet.create({
         height:70,
         backgroundColor: Colors.headerColor,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        borderBottomLeftRadius:15,
+        borderBottomRightRadius:15
     },
     headerTextStyle:{
         fontSize:24,
