@@ -8,11 +8,13 @@ import Colors from '../common/color';
 import Questions from '../common/questions';
 import Question from '../components/question';
 import Options from '../components/options';
-import ScoreScreen from './score-screen';
+import ScoreScreen from '../components/score-screen';
+import Button from '../components/button';
+import Divider from '../components/divider';
+import QuizNumber from '../components/quizNumber';
+import {shuffle} from '../common/Functions'
 
-type PropTypes = {||};
-
-const QuizScreen = ({}: PropTypes): Node => {
+const QuizScreen = (): Node => {
   const [quizes, setQuizes] = useState(Questions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [options, setOptions] = useState([]);
@@ -42,40 +44,12 @@ const QuizScreen = ({}: PropTypes): Node => {
     }
   }, [isQuizScreen]);
 
-  const shuffle = mixed_options => {
-    return mixed_options
-      ?.map(value => ({value, sort: Math.random()}))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({value}) => value);
-  };
-
-  const RenderQuestions = () => {
-    return <Question data={quizes[currentQuestion]} />;
-  };
-
-  const HandleQuizNumber = () => {
-    return (
-      <>
-        <Text style={Styles.quizNumberText}>
-          Quiz : {quizes[currentQuestion].id} / {quizes.length}
-        </Text>
-        <View style={Styles.divider} />
-      </>
-    );
-  };
-
-  const RenderOptions = () => {
-    return options.map((item, index) => {
-      let data = {option: item, questionNumber: index + 1};
-      return (
-        <Options
-          data={data}
-          selected={checkSelection(item)}
-          onPress={option => onPressOption(option)}
-        />
-      );
-    });
-  };
+  // const shuffle = mixed_options => {
+  //   return mixed_options
+  //     ?.map(value => ({value, sort: Math.random()}))
+  //     .sort((a, b) => a.sort - b.sort)
+  //     .map(({value}) => value);
+  // };
 
   const handleSubmission = () => {
     selectedOption === Questions[currentQuestion].correct_answer &&
@@ -105,21 +79,35 @@ const QuizScreen = ({}: PropTypes): Node => {
     }
   };
 
-  const RenderSubmitButton = () => {
-    return (
-      <TouchableOpacity style={Styles.submitButton} onPress={handleSubmission}>
-        <Text style={Styles.submitText}>Submit</Text>
-      </TouchableOpacity>
-    );
-  };
-
   return isQuizScreen ? (
     <View style={Styles.container}>
       <Header />
-      <HandleQuizNumber />
-      <RenderQuestions />
-      <RenderOptions />
-      <RenderSubmitButton />
+      <QuizNumber
+        style={Styles.quizNumberText}
+        quizes={quizes}
+        currentQuestionNumber={quizes[currentQuestion].id}
+        totalQuizNumber={quizes?.length}
+      />
+      <Divider style={Styles.divider} />
+      <Question data={quizes[currentQuestion]} />
+      {
+         options.map((item, index) => {
+          let data = {option: item, questionNumber: index + 1}
+          return (
+            <Options
+              data={data}
+              selected={checkSelection(item)}
+              onPress={option => onPressOption(option)}
+            />
+          )
+        })
+      }
+      <Button
+        title="Submit"
+        onPress={handleSubmission}
+        tilteStyle={Styles.submitText}
+        style={Styles.submitButton}
+      />
     </View>
   ) : (
     <ScoreScreen

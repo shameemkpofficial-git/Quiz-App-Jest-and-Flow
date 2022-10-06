@@ -5,20 +5,16 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import type {Node} from 'react';
 import Colors from '../common/color';
 import OptionButton from '../components/optionButton';
+import type {OptionTypes} from '../common/type';
 
-type PropTypes = {|
-  data: Object,
-  selected: boolean,
-  onPress: function,
-|};
-
-const Options = ({data, selected, onPress}: PropTypes): Node => {
+const Options = ({data, selected, onPress}: OptionTypes): Node => {
   return (
     <OptionButton
       style={[Styles.container, selected && {backgroundColor: 'orange'}]}
       onPress={() => onPress(data.option)}
       data={data}
       tilteStyle={Styles.questionText}
+      questionNumberStyle={[selected && Styles.questionNumberStyle]}
     />
   );
 };
@@ -38,6 +34,11 @@ const Styles = StyleSheet.create({
     fontSize: 18,
     color: 'black',
     fontWeight: '700',
+  },
+  questionNumberStyle: {
+    backgroundColor: 'cyan',
+    borderColor: 'yellow',
+    borderWidth: 1,
   },
 });
 

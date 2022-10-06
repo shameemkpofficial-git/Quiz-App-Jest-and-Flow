@@ -4,25 +4,24 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import type {Node} from 'react';
 import Colors from '../common/color';
-import celebrate from '../assets/images/celebrate.png';
-import oops from '../assets/images/oops.png';
+// import celebrate from '../assets/images/celebrate.png';
+// import oops from '../assets/images/oops.png';
+import Button from './button';
+import type {ScoreType} from '../common/type';
 
-type PropTypes = {|
-  score: number,
-  setIsQuizScreen: function,
-  setLoading: function,
-|};
-
-const ScoreScreen = ({score, setIsQuizScreen, setLoading}: PropTypes): Node => {
+const ScoreScreen = ({score, setIsQuizScreen, setLoading}: ScoreType): Node => {
   const [scoreColor, setScoreColor] = useState('#05b052');
 
   const percentage = (score / 5) * 100;
 
   const RenderRetryButton = () => {
     return (
-      <TouchableOpacity style={Styles.submitButton} onPress={handleRetry}>
-        <Text style={Styles.submitText}>Retry</Text>
-      </TouchableOpacity>
+      <Button
+        title="Retry"
+        onPress={handleRetry}
+        tilteStyle={Styles.submitText}
+        style={Styles.submitButton}
+      />
     );
   };
 
@@ -33,8 +32,8 @@ const ScoreScreen = ({score, setIsQuizScreen, setLoading}: PropTypes): Node => {
 
   const handleImage = () => {
     if (percentage >= 40) {
-      return celebrate;
-    } else return oops;
+      return require('../assets/images/celebrate.png');
+    } else return require('../assets/images/oops.png');
   };
 
   const HandleWishText = () => {
@@ -85,7 +84,6 @@ const ScoreScreen = ({score, setIsQuizScreen, setLoading}: PropTypes): Node => {
       </>
     );
   };
-  
 
   return (
     <View style={Styles.container}>

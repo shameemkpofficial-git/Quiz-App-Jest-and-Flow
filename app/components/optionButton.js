@@ -8,27 +8,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
 import type {Node} from 'react';
-
 import type {
   TextStyleProp,
   ViewStyleProp,
 } from 'react-native/Libraries/StyleSheet/StyleSheet';
+import type {OptionButtonTypes} from '../common/type';
 
-type PropsType = {|
-  data: Object,
-  tilteStyle?: TextStyleProp,
-  onPress?: () => Promise<void> | void,
-  style?: ViewStyleProp,
-|};
-
-const OptionButton = ({data, tilteStyle, onPress, style}: PropsType): Node => {
+const OptionButton = ({
+  data,
+  tilteStyle,
+  onPress,
+  style,
+  questionNumberStyle
+}: OptionButtonTypes): Node => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
+      <View style={[styles.questionNumberContainer,questionNumberStyle]}>
       <Text
-        style={[styles.title, tilteStyle]}>{`${data.questionNumber}. `}</Text>
-      <Text style={[styles.title, tilteStyle]}>{`${data.option}. `}</Text>
+        style={[styles.title, tilteStyle]}>{`${data.questionNumber}`}</Text>
+      </View>
+      <Text style={[styles.title, tilteStyle]}>{` ${data.option} `}</Text>
     </TouchableOpacity>
   );
 };
@@ -42,4 +42,12 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
   },
+  questionNumberContainer:{
+    height:45,
+    width:45,
+    backgroundColor:'orange',
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius:25
+  }
 });
