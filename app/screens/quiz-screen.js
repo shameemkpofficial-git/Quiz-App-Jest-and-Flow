@@ -1,6 +1,5 @@
 //@flow
-
-import React, {useEffect, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import type {Node} from 'react';
 import Header from '../components/header';
@@ -12,111 +11,215 @@ import ScoreScreen from '../components/score-screen';
 import Button from '../components/button';
 import Divider from '../components/divider';
 import QuizNumber from '../components/quizNumber';
-import {shuffle} from '../common/Functions'
+import {shuffle, checkSelection} from '../common/Functions';
 
-const QuizScreen = (): Node => {
-  const [quizes, setQuizes] = useState(Questions);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [options, setOptions] = useState([]);
-  const [optionLoading, setOptionLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [score, setScore] = useState(0);
-  const [isQuizScreen, setIsQuizScreen] = useState(true);
-  const [loading, setLoading] = useState(false);
+type PropsType = {||};
 
-  useEffect(() => {
+type StateType = {
+  quizes: Array<any>,
+  currentQuestion: number,
+  options: Array<any>,
+  optionLoading: boolean,
+  selectedOption: string,
+  score: number,
+  isQuizScreen: boolean,
+  loading: boolean,
+};
+
+class QuizScreen extends Component<PropsType, StateType> {
+  
+  state: StateType = {
+    quizes: Questions,
+    currentQuestion: 0,
+    options: [],
+    optionLoading: true,
+    selectedOption: '',
+    score: 0,
+    isQuizScreen: true,
+    loading: false,
+  };
+
+  componentDidMount() {
+
+    const {
+      state: {
+        quizes,
+        currentQuestion,
+        options,
+        optionLoading,
+        selectedOption,
+        score,
+        isQuizScreen,
+        loading,
+      },
+      handleSubmission,
+      onPressOption,
+    } = this;
+
     if (optionLoading) {
       let incorrect_answers = Questions[currentQuestion].incorrect_answers;
       let correct_answer = Questions[currentQuestion].correct_answer;
       let mixed_options = [...incorrect_answers, correct_answer];
-      setOptions(shuffle(mixed_options));
-      setOptionLoading(false);
-    }
-  }, [currentQuestion]);
 
-  useEffect(() => {
+      this.setState({options: shuffle(mixed_options)});
+      this.setState({optionLoading: false});
+    }
+
     if (loading) {
-      setOptionLoading(true);
-      setScore(0);
-      setSelectedOption(null);
-      setCurrentQuestion(0);
-      setLoading(false);
+      this.setState({optionLoading: true});
+      this.setState({score: 0});
+      this.setState({selectedOption: ''});
+      this.setState({currentQuestion: 0});
+      this.setState({loading: false});
     }
-  }, [isQuizScreen]);
+  }
 
-  // const shuffle = mixed_options => {
-  //   return mixed_options
-  //     ?.map(value => ({value, sort: Math.random()}))
-  //     .sort((a, b) => a.sort - b.sort)
-  //     .map(({value}) => value);
-  // };
+  componentDidUpdate(prevState: Object) {
 
-  const handleSubmission = () => {
+    const {
+      state: {
+        quizes,
+        currentQuestion,
+        options,
+        optionLoading,
+        selectedOption,
+        score,
+        isQuizScreen,
+        loading,
+      },
+      handleSubmission,
+      onPressOption,
+    } = this;
+
+    if (prevState.currentQuestion !== currentQuestion) {
+      if (optionLoading) {
+        let incorrect_answers = Questions[currentQuestion].incorrect_answers;
+        let correct_answer = Questions[currentQuestion].correct_answer;
+        let mixed_options = [...incorrect_answers, correct_answer];
+        this.setState({options: shuffle(mixed_options)});
+        this.setState({optionLoading: false});
+      }
+    }
+
+    if (prevState.isQuizScreen !== isQuizScreen) {
+      if (loading) {
+        this.setState({optionLoading: true});
+        this.setState({score: 0});
+        this.setState({selectedOption: ''});
+        this.setState({currentQuestion: 0});
+        this.setState({loading: false});
+      }
+    }
+  }
+
+  handleSubmission: () => void = () => {
+
+    const {
+      state: {
+        quizes,
+        currentQuestion,
+        options,
+        optionLoading,
+        selectedOption,
+        score,
+        isQuizScreen,
+        loading,
+      },
+      handleSubmission,
+      onPressOption,
+    } = this;
+
     selectedOption === Questions[currentQuestion].correct_answer &&
-      setScore(score + 1);
+      this.setState({score: score + 1});
     if (currentQuestion + 1 !== quizes.length) {
-      setOptionLoading(true);
-      setSelectedOption(null);
-      setCurrentQuestion(currentQuestion + 1);
+      this.setState({optionLoading: true});
+      this.setState({selectedOption: ''});
+      this.setState({currentQuestion: currentQuestion + 1});
     } else {
-      setIsQuizScreen(false);
+      this.setState({isQuizScreen: false});
     }
   };
 
-  const checkSelection = option => {
-    if (selectedOption) {
-      if (option === selectedOption) {
-        return true;
-      } else return false;
-    } else return false;
-  };
+  onPressOption: (option: string) => void = (option: string) => {
 
-  const onPressOption = option => {
+    const {
+      state: {
+        quizes,
+        currentQuestion,
+        options,
+        optionLoading,
+        selectedOption,
+        score,
+        isQuizScreen,
+        loading,
+      },
+      handleSubmission,
+      onPressOption,
+    } = this;
+
     if (option != selectedOption) {
-      setSelectedOption(option);
+      this.setState({selectedOption: option});
     } else {
-      setSelectedOption(null);
+      this.setState({selectedOption: ''});
     }
   };
 
-  return isQuizScreen ? (
-    <View style={Styles.container}>
-      <Header />
-      <QuizNumber
-        style={Styles.quizNumberText}
-        quizes={quizes}
-        currentQuestionNumber={quizes[currentQuestion].id}
-        totalQuizNumber={quizes?.length}
-      />
-      <Divider style={Styles.divider} />
-      <Question data={quizes[currentQuestion]} />
-      {
-         options.map((item, index) => {
-          let data = {option: item, questionNumber: index + 1}
+  render(): Node {
+
+    const {
+      state: {
+        quizes,
+        currentQuestion,
+        options,
+        optionLoading,
+        selectedOption,
+        score,
+        isQuizScreen,
+        loading,
+      },
+      handleSubmission,
+      onPressOption,
+    } = this;
+
+    return isQuizScreen ? (
+      <View style={Styles.container}>
+        <Header />
+        <QuizNumber
+          style={Styles.quizNumberText}
+          quizes={quizes}
+          currentQuestionNumber={quizes[currentQuestion].id}
+          totalQuizNumber={quizes?.length}
+        />
+        <Divider style={Styles.divider} />
+        <Question data={quizes[currentQuestion]} />
+        {options.map((item, index) => {
+          let data = {option: item, questionNumber: index + 1};
           return (
+            <View key={index}>
             <Options
               data={data}
-              selected={checkSelection(item)}
-              onPress={option => onPressOption(option)}
+              selected={checkSelection(item, selectedOption)}
+              onPress={option => this.onPressOption(option)}
             />
-          )
-        })
-      }
-      <Button
-        title="Submit"
-        onPress={handleSubmission}
-        tilteStyle={Styles.submitText}
-        style={Styles.submitButton}
+            </View>
+          );
+        })}
+        <Button
+          title="Submit"
+          onPress={() => handleSubmission()}
+          tilteStyle={Styles.submitText}
+          style={Styles.submitButton}
+        />
+      </View>
+    ) : (
+      <ScoreScreen
+        score={score}
+        setIsQuizScreen={value => this.setState({isQuizScreen: value})}
+        setLoading={value => this.setState({loading: value})}
       />
-    </View>
-  ) : (
-    <ScoreScreen
-      score={score}
-      setIsQuizScreen={value => setIsQuizScreen(value)}
-      setLoading={value => setLoading(value)}
-    />
-  );
-};
+    );
+  }
+}
 
 const Styles = StyleSheet.create({
   container: {

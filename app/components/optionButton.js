@@ -20,10 +20,11 @@ const OptionButton = ({
   tilteStyle,
   onPress,
   style,
-  questionNumberStyle
+  questionNumberStyle,
+  key
 }: OptionButtonTypes): Node => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
+    <TouchableOpacity key={key} onPress={onPress} style={[styles.button, style]}>
       <View style={[styles.questionNumberContainer,questionNumberStyle]}>
       <Text
         style={[styles.title, tilteStyle]}>{`${data.questionNumber}`}</Text>

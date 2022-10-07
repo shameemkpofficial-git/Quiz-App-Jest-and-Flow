@@ -12,12 +12,16 @@ const shuffle = (mixed_options:Array<any>) : Array<any> => {
     .map(({value}) => value);
 };
 
-const checkSelection = ({data}:Object):boolean => {
-  if (data.selectedOption) {
-    if (data.option === data.selectedOption) {
-      return true;
+const checkSelection = (item:string,selectedOption:string):boolean => {
+  if(item){
+    if (selectedOption) {
+      if (item === selectedOption) {
+        return true;
+      } else return false;
     } else return false;
-  } else return false;
+  }else return false
+
 };
+
 
 export {shuffle,checkSelection};

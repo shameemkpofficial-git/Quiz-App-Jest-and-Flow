@@ -26,6 +26,7 @@ type OptionTypes = {|
   data: Object,
   selected: boolean,
   onPress: function,
+  key:number
 |};
 
 type OptionButtonTypes = {|
@@ -33,7 +34,8 @@ type OptionButtonTypes = {|
   tilteStyle?: TextStyleProp,
   onPress?: () => Promise<void> | void,
   style?: ViewStyleProp,
-  questionNumberStyle?: ViewStyleProp
+  questionNumberStyle?: ViewStyleProp,
+  key:number
 |};
 
 type DividerTypes = {|
