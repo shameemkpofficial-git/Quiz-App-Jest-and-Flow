@@ -23,27 +23,30 @@ type QuestionType = {|
 |};
 
 type OptionTypes = {|
-  data: Object,
-  selected: boolean,
-  onPress: function,
-  key:number
+  questionNumber?:number,
+  option?:string,
+  selected?: boolean,
+  onPress?: () => Promise<void> | void,
+  key?:number
 |};
 
-type OptionButtonTypes = {|
-  data: Object,
-  tilteStyle?: TextStyleProp,
-  onPress?: () => Promise<void> | void,
-  style?: ViewStyleProp,
-  questionNumberStyle?: ViewStyleProp,
-  key:number
-|};
+// type OptionButtonTypes = {|
+//   // data?: Object,
+//   questionNumber?:number,
+//   option?: string,
+//   tilteStyle?: TextStyleProp,
+//   onPress?: () => Promise<void> | void,
+//   style?: ViewStyleProp,
+//   questionNumberStyle?: ViewStyleProp,
+//   key?:number
+// |};
 
 type DividerTypes = {|
   style?: ViewStyleProp,
 |};
 
 type ButtonTypes = {|
-  title: string,
+  title?: string,
   tilteStyle?: TextStyleProp,
   onPress?: () => Promise<void> | void,
   style?: ViewStyleProp,
@@ -54,7 +57,6 @@ export type {
   QuizNumberType,
   QuestionType,
   OptionTypes,
-  OptionButtonTypes,
   DividerTypes,
   ButtonTypes,
 };

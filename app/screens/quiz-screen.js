@@ -27,7 +27,7 @@ type StateType = {
 };
 
 class QuizScreen extends Component<PropsType, StateType> {
-  
+
   state: StateType = {
     quizes: Questions,
     currentQuestion: 0,
@@ -193,13 +193,13 @@ class QuizScreen extends Component<PropsType, StateType> {
         <Divider style={Styles.divider} />
         <Question data={quizes[currentQuestion]} />
         {options.map((item, index) => {
-          let data = {option: item, questionNumber: index + 1};
           return (
             <View key={index}>
             <Options
-              data={data}
+              option={item}
+              questionNumber={index + 1}
               selected={checkSelection(item, selectedOption)}
-              onPress={option => this.onPressOption(option)}
+              onPress={(option) => this.onPressOption(option)}
             />
             </View>
           );

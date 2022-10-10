@@ -4,18 +4,27 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import type {Node} from 'react';
 import Colors from '../common/color';
-import OptionButton from '../components/optionButton';
 import type {OptionTypes} from '../common/type';
 
-const Options = ({data, selected, onPress}: OptionTypes): Node => {
+const Options = ({
+  option,
+  questionNumber,
+  selected,
+  onPress,
+}: OptionTypes): Node => {
   return (
-    <OptionButton
-      style={[Styles.container, selected && {backgroundColor: 'orange'}]}
-      onPress={() => onPress(data.option)}
-      data={data}
-      tilteStyle={Styles.questionText}
-      questionNumberStyle={[selected && Styles.questionNumberStyle]}
-    />
+    <TouchableOpacity
+      onPress={(option)=>onPress(option)}
+      style={[Styles.container, selected && {backgroundColor: 'orange'}]}>
+      <View
+        style={[
+          Styles.questionNumberContainer,
+          selected && Styles.questionNumberStyle,
+        ]}>
+        <Text style={Styles.questionText}>{`${+questionNumber}`}</Text>
+      </View>
+      <Text style={Styles.questionText}>{option}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -39,6 +48,14 @@ const Styles = StyleSheet.create({
     backgroundColor: 'cyan',
     borderColor: 'yellow',
     borderWidth: 1,
+  },
+  questionNumberContainer: {
+    height: 45,
+    width: 45,
+    backgroundColor: 'orange',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
   },
 });
 

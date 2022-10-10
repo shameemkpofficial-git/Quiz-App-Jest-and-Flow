@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/component/options should render correctly 1`] = `
+<TouchableOpacity
+  onPress={[Function]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#d8e5eb",
+        "borderRadius": 30,
+        "flexDirection": "row",
+        "height": 60,
+        "marginHorizontal": 20,
+        "marginVertical": 5,
+        "paddingHorizontal": 20,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "backgroundColor": "orange",
+          "borderRadius": 25,
+          "height": 45,
+          "justifyContent": "center",
+          "width": 45,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "black",
+          "fontSize": 18,
+          "fontWeight": "700",
+        }
+      }
+    >
+      NaN
+    </Text>
+  </View>
+  <Text
+    style={
+      {
+        "color": "black",
+        "fontSize": 18,
+        "fontWeight": "700",
+      }
+    }
+  />
+</TouchableOpacity>
+`;
