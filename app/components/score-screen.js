@@ -9,8 +9,6 @@ import type {ScoreType} from '../common/type';
 import celebrate from '../assets/images/celebrate.png';
 import oops from '../assets/images/oops.png';
 
-import QuizScreen from '../screens/quiz-screen';
-
 const ScoreScreen = ({score, handleRetry}: ScoreType): Node => {
   const [scoreColor, setScoreColor] = useState('#05b052');
 
