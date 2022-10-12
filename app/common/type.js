@@ -6,40 +6,28 @@ import type {
 } from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 type ScoreType = {|
-  score: number,
-  setIsQuizScreen: function,
-  setLoading: function,
+  score?: number ,
+  handleRetry?: function,
 |};
 
 type QuizNumberType = {|
-  style: TextStyleProp,
-  quizes: Array<any>,
-  currentQuestionNumber: number,
-  totalQuizNumber: number,
+  style?: TextStyleProp,
+  quizes?: Array<any>,
+  currentQuestionNumber?: number,
+  totalQuizNumber?: number,
 |};
 
 type QuestionType = {|
-  data: Object,
+  data?: Object,
 |};
 
 type OptionTypes = {|
   questionNumber?:number,
   option?:string,
   selected?: boolean,
-  onPress?: () => Promise<void> | void,
-  key?:number
+  onPress?: function,
+  key?:number,
 |};
-
-// type OptionButtonTypes = {|
-//   // data?: Object,
-//   questionNumber?:number,
-//   option?: string,
-//   tilteStyle?: TextStyleProp,
-//   onPress?: () => Promise<void> | void,
-//   style?: ViewStyleProp,
-//   questionNumberStyle?: ViewStyleProp,
-//   key?:number
-// |};
 
 type DividerTypes = {|
   style?: ViewStyleProp,
@@ -52,6 +40,12 @@ type ButtonTypes = {|
   style?: ViewStyleProp,
 |};
 
+type OptionsTypes = {|
+  options?:Array<any>,
+  checkSelection?:function,
+  onPressOption?:function
+  |}
+
 export type {
   ScoreType,
   QuizNumberType,
@@ -59,4 +53,5 @@ export type {
   OptionTypes,
   DividerTypes,
   ButtonTypes,
+  OptionsTypes
 };

@@ -1,14 +1,14 @@
 // @flow
 import React from 'react';
 import {Component} from 'react';
-import Header from './header';
+import QuizNumber from './quizNumber';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
 let renderer = new ShallowRenderer();
 
-describe('src/component/divider', () => {
+describe('src/component/quizNumber', () => {
   const renderButton = () => {
-    renderer.render(<Header />);
+    renderer.render(<QuizNumber />);
     return renderer.getRenderOutput();
   };
 

@@ -16,6 +16,9 @@ module.exports = {
   modulePathIgnorePatterns: [
     '<rootDir>/(android|ios|electron|coverage|releases)',
   ],
+  transform: {
+    ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub",
+  },
   // moduleNameMapper: {
   //   '\\.svg': '<rootDir>/__mocks__/svg.js',
   // },

@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -117,7 +117,47 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,28 +174,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,58 +191,67 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// @flow
 &nbsp;
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import type {Node} from 'react';
-import type {
-  TextStyleProp,
-  ViewStyleProp,
-} from 'react-native/Libraries/StyleSheet/StyleSheet';
-import type {OptionButtonTypes} from '../common/type';
+import Colors from '../common/color';
+import type {OptionTypes} from '../common/type';
+&nbsp;
 &nbsp;
 const OptionButton = ({
-  data,
-  tilteStyle,
+  option,
+  questionNumber,
+  selected,
   onPress,
-  style,
-  questionNumberStyle,
-  key
-}: OptionButtonTypes): Node =&gt; {
+}: OptionTypes): Node =&gt; {
   return (
-    &lt;TouchableOpacity key={key} onPress={onPress} style={[styles.button, style]}&gt;
-      &lt;View style={[styles.questionNumberContainer,questionNumberStyle]}&gt;
-      &lt;Text
-        style={[styles.title, tilteStyle]}&gt;{`${data?.questionNumber}`}&lt;/Text&gt;
+    &lt;TouchableOpacity
+      onPress={onPress}
+      style={[Styles.container, selected &amp;&amp; {backgroundColor: 'orange'}]}&gt;
+      &lt;View
+        style={[
+          Styles.questionNumberContainer,
+          selected &amp;&amp; Styles.questionNumberStyle,
+        ]}&gt;
+        &lt;Text style={Styles.questionText}&gt;{`${+questionNumber}`}&lt;/Text&gt;
       &lt;/View&gt;
-      &lt;Text style={[styles.title, tilteStyle]}&gt;{` ${data?.option} `}&lt;/Text&gt;
+      &lt;Text style={Styles.questionText}&gt;{option}&lt;/Text&gt;
     &lt;/TouchableOpacity&gt;
   );
 };
 &nbsp;
-export default OptionButton;
-&nbsp;
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'green',
+const Styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    marginVertical: 5,
+    borderRadius: 30,
+    backgroundColor: Colors.secondaryColor,
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
-  title: {
-    color: 'white',
+  questionText: {
+    fontSize: 18,
+    color: 'black',
+    fontWeight: '700',
   },
-  questionNumberContainer:{
-    height:45,
-    width:45,
-    backgroundColor:'orange',
-    justifyContent:'center',
-    alignItems:'center',
-    borderRadius:25
-  }
+  questionNumberStyle: {
+    backgroundColor: 'cyan',
+    borderColor: 'yellow',
+    borderWidth: 1,
+  },
+  questionNumberContainer: {
+    height: 45,
+    width: 45,
+    backgroundColor: 'orange',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+  },
 });
+&nbsp;
+export default OptionButton;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -232,7 +259,7 @@ const styles = StyleSheet.create({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-07T12:34:03.432Z
+                at 2022-10-12T05:55:43.628Z
             </div>
         <script src="../prettify.js"></script>
         <script>

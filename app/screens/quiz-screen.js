@@ -1,12 +1,12 @@
 //@flow
 import React, {Component, useEffect, useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import type {Node} from 'react';
 import Header from '../components/header';
 import Colors from '../common/color';
 import Questions from '../common/questions';
 import Question from '../components/question';
-import Options from '../components/options';
+import OptionButton from '../components/optionButton';
 import ScoreScreen from '../components/score-screen';
 import Button from '../components/button';
 import Divider from '../components/divider';
@@ -27,7 +27,6 @@ type StateType = {
 };
 
 class QuizScreen extends Component<PropsType, StateType> {
-
   state: StateType = {
     quizes: Questions,
     currentQuestion: 0,
@@ -40,7 +39,29 @@ class QuizScreen extends Component<PropsType, StateType> {
   };
 
   componentDidMount() {
+    const {
+      state: {
+        quizes,
+        currentQuestion,
+        options,
+        optionLoading,
+        selectedOption,
+        score,
+        isQuizScreen,
+        loading,
+      },
+      handleSubmission,
+      onPressOption,
+    } = this;
 
+    let incorrect_answers = Questions[currentQuestion].incorrect_answers;
+    let correct_answer = Questions[currentQuestion].correct_answer;
+    let mixed_options = [...incorrect_answers, correct_answer];
+
+    this.setState({options: shuffle(mixed_options)});
+  }
+
+  componentDidUpdate(prevState: Object) {
     const {
       state: {
         quizes,
@@ -60,45 +81,8 @@ class QuizScreen extends Component<PropsType, StateType> {
       let incorrect_answers = Questions[currentQuestion].incorrect_answers;
       let correct_answer = Questions[currentQuestion].correct_answer;
       let mixed_options = [...incorrect_answers, correct_answer];
-
       this.setState({options: shuffle(mixed_options)});
       this.setState({optionLoading: false});
-    }
-
-    if (loading) {
-      this.setState({optionLoading: true});
-      this.setState({score: 0});
-      this.setState({selectedOption: ''});
-      this.setState({currentQuestion: 0});
-      this.setState({loading: false});
-    }
-  }
-
-  componentDidUpdate(prevState: Object) {
-
-    const {
-      state: {
-        quizes,
-        currentQuestion,
-        options,
-        optionLoading,
-        selectedOption,
-        score,
-        isQuizScreen,
-        loading,
-      },
-      handleSubmission,
-      onPressOption,
-    } = this;
-
-    if (prevState.currentQuestion !== currentQuestion) {
-      if (optionLoading) {
-        let incorrect_answers = Questions[currentQuestion].incorrect_answers;
-        let correct_answer = Questions[currentQuestion].correct_answer;
-        let mixed_options = [...incorrect_answers, correct_answer];
-        this.setState({options: shuffle(mixed_options)});
-        this.setState({optionLoading: false});
-      }
     }
 
     if (prevState.isQuizScreen !== isQuizScreen) {
@@ -113,7 +97,6 @@ class QuizScreen extends Component<PropsType, StateType> {
   }
 
   handleSubmission: () => void = () => {
-
     const {
       state: {
         quizes,
@@ -129,8 +112,9 @@ class QuizScreen extends Component<PropsType, StateType> {
       onPressOption,
     } = this;
 
-    selectedOption === Questions[currentQuestion].correct_answer &&
+    if (selectedOption === Questions[currentQuestion].correct_answer) {
       this.setState({score: score + 1});
+    }
     if (currentQuestion + 1 !== quizes.length) {
       this.setState({optionLoading: true});
       this.setState({selectedOption: ''});
@@ -140,8 +124,26 @@ class QuizScreen extends Component<PropsType, StateType> {
     }
   };
 
-  onPressOption: (option: string) => void = (option: string) => {
+  handleRetry: () => void = () => {
+    const {
+      state: {
+        quizes,
+        currentQuestion,
+        options,
+        optionLoading,
+        selectedOption,
+        score,
+        isQuizScreen,
+        loading,
+      },
+      handleSubmission,
+      onPressOption,
+    } = this;
 
+    this.setState({isQuizScreen: true, loading: true});
+  };
+
+  onPressOption: (option: string) => void = (option: string) => {
     const {
       state: {
         quizes,
@@ -165,7 +167,6 @@ class QuizScreen extends Component<PropsType, StateType> {
   };
 
   render(): Node {
-
     const {
       state: {
         quizes,
@@ -179,6 +180,7 @@ class QuizScreen extends Component<PropsType, StateType> {
       },
       handleSubmission,
       onPressOption,
+      handleRetry,
     } = this;
 
     return isQuizScreen ? (
@@ -192,18 +194,21 @@ class QuizScreen extends Component<PropsType, StateType> {
         />
         <Divider style={Styles.divider} />
         <Question data={quizes[currentQuestion]} />
-        {options.map((item, index) => {
-          return (
+        <FlatList
+          data={options}
+          ListEmptyComponent={<Text>No data</Text>}
+          renderItem={({item, index}) => (
             <View key={index}>
-            <Options
-              option={item}
-              questionNumber={index + 1}
-              selected={checkSelection(item, selectedOption)}
-              onPress={(option) => this.onPressOption(option)}
-            />
+              <OptionButton
+                option={item}
+                questionNumber={index + 1}
+                selected={checkSelection(item, selectedOption)}
+                onPress={() => this.onPressOption(item)}
+              />
             </View>
-          );
-        })}
+          )}
+        />
+
         <Button
           title="Submit"
           onPress={() => handleSubmission()}
@@ -212,11 +217,7 @@ class QuizScreen extends Component<PropsType, StateType> {
         />
       </View>
     ) : (
-      <ScoreScreen
-        score={score}
-        setIsQuizScreen={value => this.setState({isQuizScreen: value})}
-        setLoading={value => this.setState({loading: value})}
-      />
+      <ScoreScreen score={score} handleRetry={() => handleRetry()} />
     );
   }
 }

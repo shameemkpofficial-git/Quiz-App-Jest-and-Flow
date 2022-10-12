@@ -1,29 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`src/component/divider should render correctly 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "backgroundColor": "#4d6680",
-      "borderBottomLeftRadius": 15,
-      "borderBottomRightRadius": 15,
-      "height": 70,
-      "justifyContent": "center",
-      "width": "100%",
-    }
-  }
->
-  <Text
-    style={
-      {
-        "color": "orange",
-        "fontSize": 24,
-        "fontWeight": "900",
-      }
-    }
-  >
-    General Knowledge
-  </Text>
-</View>
+exports[`src/component/quizNumber should render correctly 1`] = `
+<Text>
+  Quiz : 
+   / 
+</Text>
 `;

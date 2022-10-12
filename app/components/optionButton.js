@@ -6,7 +6,7 @@ import type {Node} from 'react';
 import Colors from '../common/color';
 import type {OptionTypes} from '../common/type';
 
-const Options = ({
+const OptionButton = ({
   option,
   questionNumber,
   selected,
@@ -14,7 +14,7 @@ const Options = ({
 }: OptionTypes): Node => {
   return (
     <TouchableOpacity
-      onPress={(option)=>onPress(option)}
+      onPress={onPress}
       style={[Styles.container, selected && {backgroundColor: 'orange'}]}>
       <View
         style={[
@@ -59,4 +59,4 @@ const Styles = StyleSheet.create({
   },
 });
 
-export default Options;
+export default OptionButton;

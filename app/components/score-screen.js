@@ -4,61 +4,39 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import type {Node} from 'react';
 import Colors from '../common/color';
-// import celebrate from '../assets/images/celebrate.png';
-// import oops from '../assets/images/oops.png';
 import Button from './button';
 import type {ScoreType} from '../common/type';
+import celebrate from '../assets/images/celebrate.png';
+import oops from '../assets/images/oops.png';
 
-const ScoreScreen = ({score, setIsQuizScreen, setLoading}: ScoreType): Node => {
+const ScoreScreen = ({score, handleRetry}: ScoreType): Node => {
   const [scoreColor, setScoreColor] = useState('#05b052');
 
-  const percentage = (score / 5) * 100;
+  const percentage = (Number(score) / 5) * 100;
 
-  const RenderRetryButton = () => {
-    return (
-      <Button
-        title="Retry"
-        onPress={handleRetry}
-        tilteStyle={Styles.submitText}
-        style={Styles.submitButton}
-      />
-    );
-  };
-
-  const handleRetry = () => {
-    setIsQuizScreen(true);
-    setLoading(true);
-  };
-
-  const handleImage = () => {
-    if (percentage >= 40) {
-      return require('../assets/images/celebrate.png');
-    } else return require('../assets/images/oops.png');
-  };
-
-  const HandleWishText = () => {
-    return percentage >= 40 ? (
-      <Text style={Styles.congratsText}>Congrats!</Text>
-    ) : (
-      <Text style={Styles.congratsText}>Better luck next time!</Text>
-    );
-  };
-
-  const HandleScoreText = () => {
-    return (
-      <Text
-        style={[
-          Styles.scoreText,
-          {color: percentage >= 40 ? scoreColor : 'red'},
-        ]}>
-        {percentage}% Score
-      </Text>
-    );
-  };
-
-  const HandleDescriptionText = () => {
-    return (
-      <>
+  return (
+    <View style={Styles.container}>
+      <View style={Styles.innerContainer}>
+        <Image
+          source={percentage >= 40 ? celebrate : oops}
+          resizeMode={'contain'}
+          style={Styles.image}
+        />
+        {/* <HandleWishText /> */}
+        {percentage >= 40 ? (
+          <Text style={Styles.congratsText}>Congrats!</Text>
+        ) : (
+          <Text style={Styles.congratsText}>Better luck next time!</Text>
+        )}
+        {/* <HandleScoreText /> */}
+        <Text
+          style={[
+            Styles.scoreText,
+            {color: percentage >= 40 ? scoreColor : 'red'},
+          ]}>
+          {percentage}% Score
+        </Text>
+        {/* <HandleDescriptionText /> */}
         <Text style={Styles.quizComplete}>Quiz completed successfully</Text>
         <Text
           numberOfLines={2}
@@ -81,23 +59,14 @@ const ScoreScreen = ({score, setIsQuizScreen, setLoading}: ScoreType): Node => {
           </Text>
           <Text style={Styles.description}>is correct</Text>
         </Text>
-      </>
-    );
-  };
-
-  return (
-    <View style={Styles.container}>
-      <View style={Styles.innerContainer}>
-        <Image
-          source={handleImage()}
-          resizeMode={'contain'}
-          style={Styles.image}
-        />
-        <HandleWishText />
-        <HandleScoreText />
-        <HandleDescriptionText />
       </View>
-      <RenderRetryButton />
+      {/* <RenderRetryButton /> */}
+      <Button
+        title="Retry"
+        onPress={handleRetry}
+        tilteStyle={Styles.submitText}
+        style={Styles.submitButton}
+      />
     </View>
   );
 };

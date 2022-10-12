@@ -13,15 +13,11 @@ const shuffle = (mixed_options:Array<any>) : Array<any> => {
 };
 
 const checkSelection = (item:string,selectedOption:string):boolean => {
-  if(item){
-    if (selectedOption) {
+  if(item && selectedOption){
       if (item === selectedOption) {
         return true;
       } else return false;
     } else return false;
-  }else return false
-
 };
-
 
 export {shuffle,checkSelection};
